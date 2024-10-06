@@ -1,0 +1,43 @@
+---
+const objects = [
+  { name: "Sun", slug: "sun", image: "../../assets/planets/sun.png" },
+  { name: "Mercury", slug: "mercury", image: "../../assets/planets/mercury.webp" },
+  { name: "Venus", slug: "venus", image: "../../assets/planets/venus.webp" },
+  { name: "Earth", slug: "earth", image: "../../assets/planets/earth.png" },
+  { name: "Mars", slug: "mars", image: "../../assets/planets/mars.png" },
+  { name: "Jupiter", slug: "jupiter", image: "../../assets/planets/jupiter.webp" },
+  { name: "Saturn", slug: "saturn", image: "../../assets/planets/saturn.png" },
+  { name: "Uranus", slug: "uranus", image: "../../assets/planets/uranus.webp" },
+  { name: "Neptune", slug: "neptune", image: "../../assets/planets/neptune.png" },
+  { name: "Comet", slug: "commet", image: "../../assets/planets/commet.png" },
+
+];
+const { object } = Astro.params;
+---
+
+<!-- Sidebar Navigation -->
+
+<nav class="bg-[#141212] text-white h-screen p-6 w-64 shadow-lg ">
+  <!-- <h1 class="text-2xl font-bold mb-8 text-center">Learn Space Objects</h2> -->
+  <ul class="flex flex-col list-none">
+    {
+      objects.map((obj) => (
+        <li class="flex items-center border-b border-gray-700 py-4"> <!-- Added border and padding -->
+          <!-- Image for each object -->
+          <img src={`/assets/images/${obj.image}`} alt={`${obj.name} image`} class="h-6 w-6 mr-2" />
+          <a
+            href={`/space/${obj.slug}`}
+            class={`no-underline block px-4 py-2 text-white rounded transition ${
+              object === obj.slug
+                ? "bg-blue-500 text-white" /* Active state styling */
+                : "hover:bg-gray-700 hover:text-white"
+            }`}
+          >
+            {obj.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+

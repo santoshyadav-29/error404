@@ -1,0 +1,265 @@
+---
+import Layout from "../layouts/layout.astro";
+
+// src/components/SpaceQuiz.astro
+---
+
+<Layout>
+  <div
+    class="w-full md:max-w-[80%] mt-10 mx-auto   text-white shadow-md font- rounded-lg overflow-hidden"
+    id="quiz-container"
+  >
+  <style>
+    #quiz-container {
+     border: solid 2px #141212;
+    }
+  </style>
+    <div class="p-6">
+      <h2 class="text-2xl font-bold text-center mb-6">Space Quiz</h2>
+
+      <!-- Timer Display -->
+      <div class="text-center mb-4">
+        <span id="timer" class="text-gray-500 font-bold text-xl"></span>
+      </div>
+
+      <div id="question-container" class="mb-6 text-center">
+        <!-- Questions will be dynamically inserted here -->
+      </div>
+      <div class="flex justify-center">
+        <button
+          id="next-btn"
+          class="bg-gray-900 hover:bg-gray-800 cursor-pointer transition-all text-white font-bold py-3 px-4 rounded-full"
+        >
+          Next Question
+        </button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const quizData = [
+    // Question 1 - Celestial Body Showdown (Multiple Choice)
+    {
+      question: "Which celestial body would win in a dance-off?",
+      options: [
+        "A) Jupiter, with its gravity-defying moves!",
+        "B) Saturn, with its fabulous ring toss!",
+        "C) Mars, because it’s just 'out of this world!'",
+        "D) The Sun, shining too bright to be upstaged!",
+      ],
+      correctAnswer: "A) Jupiter, with its gravity-defying moves!",
+    },
+
+    // Question 2 - Neptune's Orbit (True/False)
+    {
+      question:
+        "Neptune is known as the 'lazy planet' because it takes 165 Earth years to complete one orbit around the Sun.",
+      options: [
+        "A) True (it's definitely taking its time!)",
+        "B) False (it's just really into long vacations)",
+      ],
+      correctAnswer: "A) True (it's definitely taking its time!)",
+    },
+
+    // Question 3 - Asteroid Motto (Fill in the Blank)
+    {
+      question:
+        "If asteroids had a motto, it would be: 'We’re just rockin’ around the _______!'",
+      correctAnswer: "solar system",
+    },
+
+    // Question 4 - Planetary Party (Multiple Choice)
+    {
+      question:
+        "If you could choose a planet to throw a party on, which one would it be?",
+      options: [
+        "A) Venus (for the hottest dance floor)",
+        "B) Mars (because it's a red-hot venue)",
+        "C) Jupiter (the biggest guest list!)",
+        "D) Mercury (it’s a quick stop for a speedy party)",
+      ],
+      correctAnswer: "C) Jupiter (the biggest guest list!)",
+    },
+
+    // Question 5 - Comet Humor (True/False)
+    {
+      question:
+        "Comets are just icy space balls with a sense of humor, always tailing behind and cracking jokes.",
+      options: [
+        "A) True (they're always leaving a trail of laughter!)",
+        "B) False (they're just icy and silent, like introverts)",
+      ],
+      correctAnswer: "B) False (they're just icy and silent, like introverts)",
+    },
+
+    // Question 6 - Orbital Olympics (Multiple Choice)
+    {
+      question:
+        "In the Orbital Olympics, which celestial body would win the 'fastest orbit' gold medal?",
+      options: [
+        "A) Mercury (it’s got a need for speed!)",
+        "B) Earth (running around like it’s late for work)",
+        "C) Saturn (slow and steady wins the ring race)",
+        "D) Neptune (just taking its sweet time, as usual)",
+      ],
+      correctAnswer: "A) Mercury (it’s got a need for speed!)",
+    },
+
+    // Question 7 - Earth’s Nickname (Fill in the Blank)
+    {
+      question:
+        "If Earth were to have a celebrity nickname, it would be: '_______ Planet,' because it’s home to the coolest life forms!",
+      correctAnswer: "Life",
+    },
+
+    // Question 8 - Asteroid Activities (Multiple Choice)
+    {
+      question: "What do you think asteroids like to do on their days off?",
+      options: [
+        "A) Chill in the asteroid belt, sipping cosmic smoothies",
+        "B) Go on road trips to visit the planets",
+        "C) Star in their own reality shows",
+        "D) Just float around and ponder the meaning of life",
+      ],
+      correctAnswer: "A) Chill in the asteroid belt, sipping cosmic smoothies",
+    },
+
+    // Question 9 - Saturn’s Pets (Multiple Choice)
+    {
+      question:
+        "If planets could have pets, Saturn would definitely have a collection of _______ because of its rings!",
+      options: [
+        "A) Hamsters (they love to run around in circles!)",
+        "B) Cats (because they think they’re the center of the universe)",
+        "C) Goldfish (swimming in its rings)",
+        "D) Rocks (it’s all about embracing the cosmic vibes!)",
+      ],
+      correctAnswer: "A) Hamsters (they love to run around in circles!)",
+    },
+
+    // Question 10 - Celestial Jokes (Short Answer)
+    {
+      question:
+        "What’s the funniest thing you’ve ever heard about a planet? (Share your best cosmic joke!)",
+      correctAnswer: "Your best joke!",
+    },
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+  let timeLeft = 120; // 2 minutes for the entire quiz (in seconds)
+
+  const questionContainer = document.getElementById("question-container");
+  const nextButton = document.getElementById("next-btn");
+  const timerDisplay = document.getElementById("timer");
+
+  function displayQuestion() {
+    const question = quizData[currentQuestion];
+    let html = `
+        <h3 class="text-2xl font-semibold mb-4">${question.question}</h3>
+        <div class="space-y-2">
+      `;
+
+    question.options.forEach((option, index) => {
+      html += `<div class="w-full  flex item-center justify-center">
+          <div class="flex  items-center hover:bg-gray-900   hover:cursor-pointer w-1/3 p-2 rounded-full ">
+            <input type="radio" id="option${index}" name="answer" value="${option}" class="mr-2">
+            <label for="option${index}">${option}</label>
+          </div>
+          </div>
+        `;
+    });
+
+    html += "</div>";
+    questionContainer.innerHTML = html;
+  }
+
+  function checkAnswer() {
+    const selectedAnswer = document.querySelector(
+      'input[name="answer"]:checked'
+    );
+    if (selectedAnswer) {
+      if (selectedAnswer.value === quizData[currentQuestion].correctAnswer) {
+        score++;
+      }
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        displayQuestion();
+      } else {
+        showResults();
+      }
+    }
+  }
+
+  function showResults() {
+    const percentage = (score / quizData.length) * 100;
+    let recommendation;
+
+    if (percentage >= 80) {
+      recommendation = {
+        title: "Excellent work, space explorer!",
+        description:
+          "Your knowledge of space is stellar. For more advanced topics, check out NASA's official website or consider reading 'An Introduction to Modern Astrophysics' by Carroll and Ostlie.",
+        link: "https://www.nasa.gov/",
+      };
+    } else if (percentage >= 60) {
+      recommendation = {
+        title: "Great job, you're on your way to becoming a space expert!",
+        description:
+          "To boost your knowledge, we recommend watching 'Cosmos: A Spacetime Odyssey' hosted by Neil deGrasse Tyson or reading 'A Brief History of Time' by Stephen Hawking.",
+        link: "https://www.nationalgeographic.com/tv/shows/cosmos-a-spacetime-odyssey",
+      };
+    } else {
+      recommendation = {
+        title: "Your space journey is just beginning!",
+        description:
+          "Don't worry, space is a vast topic! Start with 'Astronomy: A Self-Teaching Guide' by Dinah L. Moché or explore the interactive website 'Solar System Scope' to learn more about our cosmic neighborhood.",
+        link: "https://www.solarsystemscope.com/",
+      };
+    }
+
+    questionContainer.innerHTML = `
+        <h3 class="text-xl font-bold mb-4">Quiz Completed!</h3>
+        <p class="text-lg mb-4">Your score: ${score} out of ${quizData.length}</p>
+        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+          <p class="font-bold">${recommendation.title}</p>
+          <p>${recommendation.description}</p>
+          <a href="${recommendation.link}" target="_blank" rel="noopener noreferrer" class="block mt-2 text-blue-500 hover:underline">
+            Learn More
+          </a>
+        </div>
+      `;
+    nextButton.textContent = "Restart Quiz";
+    nextButton.removeEventListener("click", checkAnswer);
+    nextButton.addEventListener("click", restartQuiz);
+  }
+
+  function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    timeLeft = 120; // Reset timer
+    displayQuestion();
+    nextButton.textContent = "Next Question";
+    nextButton.removeEventListener("click", restartQuiz);
+    nextButton.addEventListener("click", checkAnswer);
+  }
+
+  function startTimer() {
+    const timerInterval = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerDisplay.textContent = `Time Left: ${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        showResults(); // Time's up, show results
+      }
+      timeLeft--;
+    }, 1000);
+  }
+
+  displayQuestion();
+  startTimer(); // Start the countdown timer when the quiz loads
+  nextButton.addEventListener("click", checkAnswer);
+</script>

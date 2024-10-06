@@ -1,0 +1,78 @@
+---
+import Layout from "../../layouts/layout.astro";
+import Sidebar from "../../components/sidebar.astro";
+
+const title = "Comet";
+const image = "../../../assets/planets/Commet.png";
+const comets = [
+  { name: "Halley's Comet", period: "76 years", nextArrival: "2061" },
+  { name: "Comet Hale-Bopp", period: "2,533 days", nextArrival: "2027" },
+  { name: "Comet Swift-Tuttle", period: "133 years", nextArrival: "2126" },
+  { name: "Comet NEOWISE", period: "6,800 years", nextArrival: "8826" },
+];
+---
+
+<Layout>
+  <div class="flex">
+    <section class="sidebar"><Sidebar /></section>
+    <section class="bg-black text-white w-full">
+      <div class="planet-details flex justify-around items-center w-full">
+        <div class="content ml-10">
+          <h1 class="text-3xl font-bold">{title}</h1>
+          <h2>Description</h2>
+          <p class="max-w-[70ch] text-gray-400">
+            A comet is a small celestial body made up of ice, dust, and rocky
+            material that orbits the Sun. Unlike asteroids, which are mostly
+            made of rock or metal, comets contain a significant amount of frozen
+            gases like water, carbon dioxide, methane, and ammonia. As a comet
+            approaches the Sun, the heat causes these ices to vaporize, creating
+            a visible atmosphere around the nucleus called a coma, along with a
+            bright tail that always points away from the Sun due to the solar
+            wind.
+          </p>
+        </div>
+        <div class="img mr-24">
+          <img class="w-[300px]" src={image} alt={title} />
+        </div>
+      </div>
+
+      <!-- New Section for Comet Years -->
+      <div class="comet-years m-10 p-5  rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4">Astronomical Years of Comets</h2>
+        <style>
+            .comet-years {
+              border: 2px solid #141212
+            }
+        </style>
+        <table class="w-full text-left table-auto">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 border-b-2 border-gray-600">Comet Name</th>
+              <th class="px-4 py-2 border-b-2 border-gray-600"
+                >Orbital Period</th
+              >
+              <th class="px-4 py-2 border-b-2 border-gray-600">Next Arrival</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              comets.map((comet) => (
+                <tr class="hover:bg-gray-700 transition-colors">
+                  <td class="px-4 py-2 border-b border-gray-600">
+                    {comet.name}
+                  </td>
+                  <td class="px-4 py-2 border-b border-gray-600">
+                    {comet.period}
+                  </td>
+                  <td class="px-4 py-2 border-b border-gray-600">
+                    {comet.nextArrival}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Layout>

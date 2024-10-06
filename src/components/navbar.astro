@@ -1,0 +1,57 @@
+---
+// Navbar Component using Tailwind CSS in Astro
+---
+
+<nav class="bg-[#141212] p-4 shadow-md">
+  <div class="flex justify-between mr-[4rem] items-center">
+    <!-- Left side: logo and text -->
+    <div class="flex items-center space-x-2">
+      <img
+      onclick="location.href='/'"
+        src="../../assets/logo.png"
+        alt="Cosmira Logo"
+        class="h-16 hover:scale-110 transition-all cursor-pointer"
+      />
+      <!-- <h1 class="text-2xl font-bold">Cosmira</h1> -->
+    </div>
+
+    <!-- Right side: navigation links -->
+    <ul class="nav-links flex">
+      <li class=""><a href="/" class="nav-item">Home</a></li>
+      <li class="h-6 w-[1px] bg-white"></li>
+      <li><a href="/explore" class="nav-item">Explore</a></li>
+      <li class="h-6 w-[1px] bg-white"></li>
+      <li><a href="/space/sun" class="nav-item">Spaces</a></li>
+      <li class="h-6 w-[1px] bg-white"></li>
+      <li><a href="/quiz" class="nav-item">Quiz</a></li>
+      <!-- Added pr-4 for right padding -->
+    </ul>
+  </div>
+</nav>
+<style>
+  /* Styling for the navbar container */
+
+  /* .head {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-left: 10px;
+  } */
+
+  /* Styling for the navigation links */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px; /* Adds space between each link */
+  }
+
+  .nav-item {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem; /* Text size */
+    transition: color 0.3s ease; /* Smooth color transition */
+  }
+
+  .nav-item:hover {
+    color: #b3b3b3; /* Color change on hover */
+  }
+</style>

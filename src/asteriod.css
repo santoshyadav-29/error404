@@ -1,0 +1,137 @@
+/* Asteroid Belt */
+#asteroid-belt {
+
+  position: absolute;
+  width: 85em;
+  height: 85em;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  margin-top: -42.5em;
+  margin-left: -42.5em;
+  transform: scaleY(0.6);
+  transform-style: flat;
+  animation: orbit 80s linear infinite;
+}
+
+/* Random positions for the asteroids inside the belt remain the same */
+.asteroids {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Smaller asteroids inside the asteroid belt */
+.asteroid {
+  position: absolute;
+  width: 0.2em;
+  height: 0.2em;
+  background-color: #8B8B8B;
+  border-radius: 50%;
+}
+
+/* Example asteroid positions */
+/* Example asteroid positions (randomized for better distribution) */
+/* .asteroids .asteroid:nth-child(1) {
+  top: 15%;
+  left: 20%;
+}
+
+.asteroids .asteroid:nth-child(2) {
+  top: 25%;
+  left: 50%;
+}
+
+.asteroids .asteroid:nth-child(3) {
+  top: 35%;
+  left: 75%;
+}
+
+.asteroids .asteroid:nth-child(4) {
+  top: 45%;
+  left: 30%;
+}
+
+.asteroids .asteroid:nth-child(5) {
+  top: 55%;
+  left: 80%;
+}
+
+.asteroids .asteroid:nth-child(6) {
+  top: 60%;
+  left: 10%;
+}
+
+.asteroids .asteroid:nth-child(7) {
+  top: 70%;
+  left: 55%;
+}
+
+.asteroids .asteroid:nth-child(8) {
+  top: 80%;
+  left: 25%;
+}
+
+.asteroids .asteroid:nth-child(9) {
+  top: 20%;
+  left: 75%;
+}
+
+.asteroids .asteroid:nth-child(10) {
+  top: 30%;
+  left: 40%;
+}
+
+.asteroids .asteroid:nth-child(11) {
+  top: 70%;
+  left: 65%;
+}
+
+.asteroids .asteroid:nth-child(12) {
+  top: 45%;
+  left: 50%;
+}
+
+.asteroids .asteroid:nth-child(13) {
+  top: 85%;
+  left: 80%;
+}
+
+.asteroids .asteroid:nth-child(14) {
+  top: 55%;
+  left: 15%;
+}
+
+.asteroids .asteroid:nth-child(15) {
+  top: 75%;
+  left: 40%;
+}
+
+.asteroids .asteroid:nth-child(16) {
+  top: 10%;
+  left: 55%;
+}
+
+.asteroids .asteroid:nth-child(17) {
+  top: 20%;
+  left: 30%;
+}
+
+.asteroids .asteroid:nth-child(18) {
+  top: 50%;
+  left: 60%;
+}
+
+.asteroids .asteroid:nth-child(19) {
+  top: 30%;
+  left: 80%;
+}
+
+.asteroids .asteroid:nth-child(20) {
+  top: 90%;
+  left: 20%;
+} */
+
+
+/* Adjust Mars and Jupiter orbits accordingly if needed */

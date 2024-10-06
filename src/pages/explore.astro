@@ -1,0 +1,351 @@
+---
+import "../style.css";
+import "../asteriod.css";
+import Layout from "../layouts/layout.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar System</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+
+  <body class="opening hide-UI view-2D zoom-large data-close controls-close">
+    <audio id="background-sound" loop autoplay>
+      <source src="../../assets/music/space.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <script is:inline>
+      // Get the audio element
+      const backgroundMusic = document.getElementById("background-sound");
+
+      // Set the initial volume to 50% (0.5)
+      backgroundMusic.volume = 0.4;
+
+      // You can adjust this value to decrease or increase volume
+      // For example, 0.1 will be 10% volume.
+    </script>
+
+    <div id="navbar">
+      <a id="toggle-data" href="#data"><i class="icon-data"></i>Data</a>
+      <!-- <h1>
+        Welcome To Orrery Space App<br /><span
+          >by
+          <i>@Team Cosmira</i></span
+        >
+      </h1> -->
+      <a id="toggle-controls" href="#controls"
+        ><i class="icon-controls"></i>Controls</a
+      >
+    </div>
+    <nav class="bg-[#2E2E2E] text-white p-4 sticky top-0">
+      <div class="flex justify-between items-center">
+        <!-- Left side: logo and text -->
+        <div class="flex items-center space-x-2">
+          <img src="../../assets/logo.png" alt="Cosmira Logo" class="h-16" />
+          <!-- <h1 class="text-2xl font-bold">Cosmira</h1> -->
+        </div>
+
+        <!-- Right side: navigation links -->
+        <ul class="nav-links flex">
+          <li class=""><a href="/" class="nav-item">Home</a></li>
+          <li class="h-6 w-[1px] bg-white"></li>
+          <li><a href="/explore" class="nav-item">Explore</a></li>
+          <li class="h-6 w-[1px] bg-white"></li>
+          <li><a href="/space/sun" class="nav-item">Spaces</a></li>
+          <li class="h-6 w-[1px] bg-white"></li>
+          <li><a href="/quiz" class="nav-item">Quiz</a></li>
+          <!-- Added pr-4 for right padding -->
+        </ul>
+      </div>
+    </nav>
+    <style>
+      /* Styling for the navbar container */
+
+      /* .head {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-left: 10px;
+      } */
+
+      /* Styling for the navigation links */
+      .nav-links {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        list-style: none;
+        gap: 30px; /* Adds space between each link */
+      }
+
+      .nav-item {
+        text-decoration: none;
+        color: white;
+        font-size: 1rem; /* Text size */
+        transition: color 0.3s ease; /* Smooth color transition */
+      }
+
+      .nav-item:hover {
+        color: #b3b3b3; /* Color change on hover */
+      }
+    </style>
+
+    <div id="data">
+      <a class="sun" title="sun" href="#sunspeed">Sun</a>
+      <a class="mercury" title="mercury" href="#mercuryspeed">Mercury</a>
+      <a class="venus" title="venus" href="#venusspeed">Venus</a>
+      <a class="earth active" title="earth" href="#earthspeed">Earth</a>
+      <a class="mars" title="mars" href="#marsspeed">Mars</a>
+      <a class="jupiter" title="jupiter" href="#jupiterspeed">Jupiter</a>
+      <a class="saturn" title="saturn" href="#saturnspeed">Saturn</a>
+      <a class="uranus" title="uranus" href="#uranusspeed">Uranus</a>
+      <a class="neptune" title="neptune" href="#neptunespeed">Neptune</a>
+    </div>
+
+    <div id="controls">
+      <label class="set-view">
+        <input type="checkbox" />
+      </label>
+      <label class="set-zoom">
+        <input type="checkbox" />
+      </label>
+      <label>
+        <input type="radio" class="set-speed" name="scale" checked />
+        <span>Speed</span>
+      </label>
+      <label>
+        <input type="radio" class="set-size" name="scale" />
+        <span>Size</span>
+      </label>
+      <label>
+        <input type="radio" class="set-distance" name="scale" />
+        <span>Distance</span>
+      </label>
+    </div>
+    <div id="universe" class="scale-stretched">
+      <div id="galaxy">
+        <div id="solar-system" class="earth">
+          <div id="asteroid-belt" class="orbit">
+            <div class="pos">
+              <div class="asteroids"></div>
+              <!-- Empty container for asteroids -->
+            </div>
+          </div>
+          <script type="module">
+            const asteroidBelt = document.querySelector(".asteroids");
+            const numAsteroids = 120; // Number of asteroids
+
+            // Function to generate a random position
+            function getRandomPosition(max) {
+              return Math.random() * max; // Generates a random position between 0 and max
+            }
+
+            // Function to create asteroids
+            function createAsteroids() {
+              for (let i = 0; i < numAsteroids; i++) {
+                const asteroid = document.createElement("div");
+                asteroid.classList.add("asteroid");
+
+                // Randomize positions for top and left, ensuring they stay within the bounds
+                const topPosition = getRandomPosition(1000); // Random percentage for top (0% to 90%)
+                const leftPosition = getRandomPosition(190); // Random percentage for left (0% to 90%)
+
+                // Set the position styles
+                asteroid.style.top = `${topPosition}%`;
+                asteroid.style.left = `${leftPosition}%`;
+
+                // Append the asteroid to the asteroid belt
+                asteroidBelt.appendChild(asteroid);
+              }
+            }
+
+            createAsteroids(); // Call the function to create asteroids
+          </script>
+
+          <div id="mercury" class="orbit">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Mercury</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="venus" class="orbit">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Venus</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="earth" class="orbit">
+            <div class="pos">
+              <div class="orbit">
+                <div class="pos">
+                  <div class="moon"></div>
+                </div>
+              </div>
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Earth</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="mars" class="orbit">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Mars</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="jupiter" class="orbit">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Jupiter</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="saturn" class="orbit">
+            <div class="pos">
+              <div class="planet">
+                <div class="ring"></div>
+                <dl class="infos">
+                  <dt>Saturn</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="uranus" class="orbit">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Uranus</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="neptune" class="orbit">
+            <div class="pos">
+              <div class="planet">
+                <dl class="infos">
+                  <dt>Neptune</dt>
+                  <dd><span></span></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div id="sun">
+            <dl class="infos">
+              <dt>Sun</dt>
+              <dd><span></span></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  window.addEventListener("load", function () {
+    let body = document.querySelector("body"),
+      universe = document.getElementById("universe"),
+      solarsys = document.getElementById("solar-system");
+
+    let init = function () {
+      body.classList.remove("view-2D", "opening");
+      body.classList.add("view-3D");
+      setTimeout(function () {
+        body.classList.remove("hide-UI");
+        body.classList.add("set-speed");
+      }, 2000);
+    };
+
+    let setView = function (view) {
+      universe.className = view;
+    };
+
+    document
+      .getElementById("toggle-data")
+      .addEventListener("click", function (e) {
+        body.classList.toggle("data-open");
+        body.classList.toggle("data-close");
+        e.preventDefault();
+      });
+
+    document
+      .getElementById("toggle-controls")
+      .addEventListener("click", function (e) {
+        body.classList.toggle("controls-open");
+        body.classList.toggle("controls-close");
+        e.preventDefault();
+      });
+
+    document.querySelectorAll("#data a").forEach(function (element) {
+      element.addEventListener("click", function (e) {
+        var ref = this.className;
+        solarsys.className = ref;
+        document.querySelectorAll("#data a").forEach(function (el) {
+          el.classList.remove("active");
+        });
+        this.classList.add("active");
+        e.preventDefault();
+      });
+    });
+
+    document.querySelectorAll(".set-view").forEach(function (element) {
+      element.addEventListener("click", function () {
+        body.classList.toggle("view-3D");
+        body.classList.toggle("view-2D");
+      });
+    });
+
+    document.querySelectorAll(".set-zoom").forEach(function (element) {
+      element.addEventListener("click", function () {
+        body.classList.toggle("zoom-large");
+        body.classList.toggle("zoom-close");
+      });
+    });
+
+    document.querySelectorAll(".set-speed").forEach(function (element) {
+      element.addEventListener("click", function () {
+        setView("scale-stretched set-speed");
+      });
+    });
+
+    document.querySelectorAll(".set-size").forEach(function (element) {
+      element.addEventListener("click", function () {
+        setView("scale-s set-size");
+      });
+    });
+
+    document.querySelectorAll(".set-distance").forEach(function (element) {
+      element.addEventListener("click", function () {
+        setView("scale-d set-distance");
+      });
+    });
+
+    init();
+  });
+</script>
